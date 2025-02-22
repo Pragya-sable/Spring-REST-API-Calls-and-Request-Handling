@@ -67,5 +67,15 @@ public class GreetingService {
                 .toList();
     }
 
+    public String updateGreetingMessage(Long id, String newMessage) {
+        return greetingRepository.findById(id)
+                .map(greeting -> {
+                    greeting.setMessage(newMessage);
+                    greetingRepository.save(greeting);
+                    return "Greeting updated successfully";
+                })
+                .orElse("Greeting not found");
+    }
+
 }
 

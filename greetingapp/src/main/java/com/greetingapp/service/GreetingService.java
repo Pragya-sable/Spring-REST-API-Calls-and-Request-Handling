@@ -5,6 +5,7 @@ import com.greetingapp.repository.GreetingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -52,10 +53,19 @@ public class GreetingService {
     }
     //UC5
     // New method to find a greeting by ID
-    public Optional<Greeting> getGreetingById(Long id) {
+   /* public Optional<Greeting> getGreetingById(Long id) {
         return greetingRepository.findById(id);
+    }*/
+    public String getGreetingById(Long id) {
+        return greetingRepository.findById(id)
+                .map(Greeting::getMessage)
+                .orElse("Greeting not found");
     }
-
+    public List<String> getAllGreetings() {
+        return greetingRepository.findAll().stream()
+                .map(Greeting::getMessage)
+                .toList();
+    }
 
 }
 
